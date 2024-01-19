@@ -1,0 +1,36 @@
+version: '3.3'
+
+services:
+  app:
+    image: 'bellory/android-project-backend:master'
+    restart: always
+    container_name: app
+    ports:
+      - "8081:8080"
+    depends_on:
+      - db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/person
+      - SPRING_DATASOURCE_USERNAME=person
+      - SPRING_DATASOURCE_PASSWORD=person
+
+  db:
+    image: 'postgres:15.2'
+    container_name: db
+    restart: always
+    ports:
+      - "5434:5432"
+    environment:
+      - POSTGRES_DB=person
+      - POSTGRES_USER=person
+      - POSTGRES_PASSWORD=person
+
+#services:
+#  postgres:
+#    image: 'postgres:latest'
+#    environment:
+#      - 'POSTGRES_DB=mydatabase'
+#      - 'POSTGRES_PASSWORD=secret'
+#      - 'POSTGRES_USER=myuser'
+#    ports:
+#      - '5432'
